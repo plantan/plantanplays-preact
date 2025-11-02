@@ -1,0 +1,15 @@
+* {
+    margin: 0;
+    padding: 0;
+    font-family: monospace;
+}
+
+:root {
+    --bg-color: #060613;
+    --stripe-color: #141b1e67;
+    --banner-height: 0;
+    --grid-max-width: min(1400px, 97vw);
+    --blur: 0px;
+    --brightness: 1;
+    --pointer-event: auto;
+}

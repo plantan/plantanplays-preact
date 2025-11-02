@@ -1,0 +1,12 @@
+{
+  "name": "plantanplays-preact",
+  "devDependencies": {
+    "@types/bun": "latest",
+    "@types/papaparse": "^5.3.16"
+  },
+  "dependencies": {
+    "papaparse": "^5.5.3",
+    "preact": "^10.27.2",
+    "typescript": "^5"
+  }
+}
