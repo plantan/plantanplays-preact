@@ -8,7 +8,7 @@ const secret = process.argv.slice(2)[1]!;
 
 const response = await fetch(new Request(`https://id.twitch.tv/oauth2/token?client_id=${id}&client_secret=${secret}&grant_type=client_credentials`, { method: 'POST', }));
 const jsonResponse = await response.json();
-const access_token = jsonResponse['access_token'];
+const accessToken = jsonResponse['access_token'];
 
 Papa.parse(text, { header: true, complete: papaparse_complete });
 async function papaparse_complete(csv: any) {
@@ -24,9 +24,9 @@ async function papaparse_complete(csv: any) {
     const map = new Map<string, { cover_url: string, cover_big_url: string, date: Date }>();
     for (const igdbid of igdbids) {
         if(!covers.hasOwnProperty(igdbid)) {
-            const req_cover = build_igdb_req('https://api.igdb.com/v4/covers', `fields image_id; where game = ${igdbid};`);
-            const req_date = build_igdb_req('https://api.igdb.com/v4/games', `fields first_release_date; where id = ${igdbid};`);
-            const res = await Promise.all([fetch(req_cover), fetch(req_date), Bun.sleep(500)]);
+            const reqCover = build_igdb_req('https://api.igdb.com/v4/covers', `fields image_id; where game = ${igdbid};`);
+            const reqDate = build_igdb_req('https://api.igdb.com/v4/games', `fields first_release_date; where id = ${igdbid};`);
+            const res = await Promise.all([fetch(reqCover), fetch(reqDate), Bun.sleep(500)]);
             const json = await Promise.all([res[0].json(), res[1].json()]);
     
             const cover = json[0][0].image_id;
@@ -54,7 +54,7 @@ function build_igdb_req(endpoint: string, body: string): Request {
     const headers = new Headers();
     headers.append('Accept', 'application/json');
     headers.append('Client-ID', id);
-    headers.append('Authorization', `Bearer ${access_token}`);
+    headers.append('Authorization', `Bearer ${accessToken}`);
 
     return new Request(endpoint, {
         method: 'POST',
